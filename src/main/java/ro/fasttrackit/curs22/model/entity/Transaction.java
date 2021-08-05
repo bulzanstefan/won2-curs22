@@ -10,7 +10,7 @@ import javax.persistence.Id;
 public class Transaction {
     @Id
     @GeneratedValue
-    private int id;
+    private Integer id;
     private String product;
     private double amount;
     private TransactionType type;
@@ -24,11 +24,11 @@ public class Transaction {
         this.type = type;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

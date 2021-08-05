@@ -24,7 +24,9 @@
 </nav>
 
 <div class="container mt-5">
-    <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#transaction-modal">Add
+    <button class="btn btn-primary mb-3" data-target="#transaction-modal" data-toggle="modal"
+            id="add-transaction-main-button"
+            type="button">Add
         Transaction
     </button>
 
@@ -40,13 +42,21 @@
         </thead>
         <tbody>
         <tr data-th-each="transaction: ${transactions}">
-            <td data-th-text="${transaction.id}"></td>
+            <td>
+                <a data-th-href="'/transactions/'+${transaction.id}" data-th-text="${transaction.id}"> </a>
+            </td>
+
             <td data-th-text="${transaction.product}"></td>
             <td data-th-text="${transaction.amount}"></td>
             <td data-th-text="${transaction.type}"></td>
             <td>
-                <i class="fas fa-edit mr-2" data-toggle="modal" data-target="#transaction-modal"></i>
-                <i class="fas fa-trash-alt"></i>
+                <div data-th-id="${transaction.id}" style="cursor: pointer">
+                    <i class="fas fa-edit mr-2 edit-icon" data-target="#transaction-modal" data-toggle="modal"></i>
+                    <i class="fas fa-trash-alt delete-icon"></i>
+                    <a data-th-href="'/transactions/'+${transaction.id}">
+                        <i class="fas fa-arrow-alt-circle-right"></i>
+                    </a>
+                </div>
             </td>
         </tr>
         </tbody>
@@ -79,7 +89,8 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" id="add-transaction-button">Save</button>
+                <button class="btn btn-primary" data-dismiss="modal" id="add-transaction-button" type="button">Save
+                </button>
             </div>
         </div>
     </div>
