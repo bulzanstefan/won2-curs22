@@ -5,7 +5,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import ro.fasttrackit.curs22.service.TransactionService;
+
+import static java.util.Optional.ofNullable;
 
 @Controller
 @RequestMapping("transactions")
@@ -17,8 +20,11 @@ public class TransactionsUIController {
     }
 
     @GetMapping
-    String transactionsPage(Model model) {
+    String transactionsPage(Model model, @RequestParam(required = false) Integer showTransaction) {
         model.addAttribute("transactions", service.getAll());
+        ofNullable(showTransaction)
+                .flatMap(service::getTransaction)
+                .ifPresent(transaction -> model.addAttribute("showTransaction", transaction));
         return "transactions";
     }
 
